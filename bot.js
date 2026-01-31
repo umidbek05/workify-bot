@@ -10,6 +10,20 @@ const pool = new Pool({
   },
 });
 
+const http = require("http");
+
+// Railway uchun oddiy HTTP server
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Bot is running...");
+});
+
+// Railway avtomatik PORT beradi, agar bermasa 8080 ni oladi
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log(`Server ${PORT}-portda ishlamoqda...`);
+});
+
 // Xatoliklarni ushlab qolish uchun
 pool.on("error", (err) => {
   console.error("Baza bilan kutilmagan xatolik:", err);
