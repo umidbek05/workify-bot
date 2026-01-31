@@ -6,11 +6,13 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, // Bu qator Railway ulanishini qabul qilishi uchun shart
+    rejectUnauthorized: false, // Railway uchun eng muhim qator shu!
   },
-  max: 20, // Bir vaqtning o'zida ulanishlar soni
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+});
+
+// Xatoliklarni ushlab qolish uchun
+pool.on("error", (err) => {
+  console.error("Baza bilan kutilmagan xatolik:", err);
 });
 
 bot.on("message", async (msg) => {
